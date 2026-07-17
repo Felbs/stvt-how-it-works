@@ -143,6 +143,9 @@ h3{font-size:19px;margin-bottom:.3em}
 .platrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;font-family:var(--mono);font-size:13px}
 .platrow span{border:1px solid #2a3644;border-radius:999px;padding:8px 16px;color:#c7d0da}
 .platrow span b{color:var(--amber)}
+.platrow a.plat{color:var(--teal-ink);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+.platrow a.plat b{color:inherit}
+.platrow a.plat:hover{border-bottom-color:var(--teal-ink)}
 
 /* ---- rail ---- */
 .rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:11px}
@@ -532,7 +535,7 @@ a{color:var(--accent-ink)}
       <div class="cell"><div class="k">Universal</div><h3>Learns, doesn't assume</h3><p>Antennas, hours and markets are data the tuner learns — nothing hard-coded.</p></div>
     </div>
     <div class="platrow">
-      <span>Runs on <b>Windows</b></span><span>Runs on <b>Linux</b></span><span>Runs on <b>Raspberry&nbsp;Pi</b></span><span>Bit-comparable <b>across all three</b></span>
+      <span>Runs on <a class="plat" href="https://github.com/Felbs/Software-TV-Tuner/tree/main-universal" target="_blank" rel="noopener"><b>Windows</b></a></span><span>Runs on <a class="plat" href="https://github.com/Felbs/Software-TV-Tuner/tree/main-linux" target="_blank" rel="noopener"><b>Linux</b></a></span><span>Runs on <a class="plat" href="https://github.com/Felbs/Software-TV-Tuner/tree/pi-port-stvt" target="_blank" rel="noopener"><b>Raspberry&nbsp;Pi</b></a></span><span>Bit-comparable <b>across all three</b></span>
     </div>
   </div>
 </section>
