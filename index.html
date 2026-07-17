@@ -1,3 +1,4 @@
+<script>(function(){try{var t=localStorage.getItem('stvt-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <title>How the Software TV Tuner Works</title>
 <style>
 :root{
@@ -5,7 +6,7 @@
   --line:#242e3a; --line-soft:#19212b;
   --amber:#ffb43a; --amber-2:#ffcc73; --amber-ink:#ffbb4d;
   --teal:#33d0c4; --teal-ink:#3ad8cc; --red:#ff5c4d; --violet:#8a7dff;
-  --txt:#eaf0f6; --body:#a9b4c1; --muted:#727d8b;
+  --txt:#f2f6fa; --body:#c6d0dc; --muted:#9aa6b4;
   --screen:#0b0e12; --screen-line:#1b232d;
   --accent:var(--amber); --accent-ink:var(--amber-ink);
   --maxw:1080px;
@@ -16,20 +17,20 @@
   :root{
     --ground:#e9ebee; --panel:#ffffff; --panel-2:#f4f5f7;
     --line:#d8dce1; --line-soft:#e6e9ed;
-    --txt:#141a21; --body:#464f5a; --muted:#727c88;
+    --txt:#141a21; --body:#3a434e; --muted:#4f5a67;
     --amber-ink:#9a5f0f; --teal-ink:#0f7d74; --accent-ink:var(--amber-ink);
   }
 }
 :root[data-theme="dark"]{
   --ground:#0e1219; --panel:#151b24; --panel-2:#1a212b;
   --line:#242e3a; --line-soft:#19212b;
-  --txt:#eaf0f6; --body:#a9b4c1; --muted:#727d8b;
+  --txt:#f2f6fa; --body:#c6d0dc; --muted:#9aa6b4;
   --amber-ink:#ffbb4d; --teal-ink:#3ad8cc; --accent-ink:var(--amber-ink);
 }
 :root[data-theme="light"]{
   --ground:#e9ebee; --panel:#ffffff; --panel-2:#f4f5f7;
   --line:#d8dce1; --line-soft:#e6e9ed;
-  --txt:#141a21; --body:#464f5a; --muted:#727c88;
+  --txt:#141a21; --body:#3a434e; --muted:#4f5a67;
   --amber-ink:#9a5f0f; --teal-ink:#0f7d74; --accent-ink:var(--amber-ink);
 }
 *{box-sizing:border-box}
@@ -157,7 +158,19 @@ h3{font-size:19px;margin-bottom:.3em}
 
 .footer{padding:40px 0 60px;color:var(--muted);font-family:var(--mono);font-size:12px;border-top:1px solid var(--line-soft)}
 a{color:var(--accent-ink)}
+
+/* ---- theme toggle ---- */
+.themebtn{position:fixed;top:16px;right:16px;z-index:60;width:42px;height:42px;border-radius:50%;
+  background:var(--panel);border:1px solid var(--line);color:var(--accent-ink);cursor:pointer;
+  font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 22px -10px rgba(0,0,0,.55);transition:transform .18s ease,border-color .18s ease}
+.themebtn:hover{transform:scale(1.09);border-color:var(--accent)}
+.themebtn:active{transform:scale(.96)}
+.themebtn:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+@media(max-width:520px){.themebtn{top:12px;right:12px;width:38px;height:38px;font-size:16px}}
 </style>
+
+<button class="themebtn" id="themebtn" type="button" aria-label="Toggle light or dark theme" title="Toggle light / dark">☀</button>
 
 <nav class="rail" aria-label="section navigation">
   <a href="#hero" class="on" aria-label="Intro"></a>
@@ -505,7 +518,7 @@ a{color:var(--accent-ink)}
 
 <!-- 12 CLOSE -->
 <section id="close" class="close">
-  <span class="slabel" style="color:#5c6672">13 / 13</span>
+  <span class="slabel" style="color:#8791a0">13 / 13</span>
   <div class="wrap reveal">
     <div class="eyebrow">The whole point</div>
     <h2>One decoder. Any antenna. Any market. And it keeps getting better.</h2>
@@ -551,6 +564,23 @@ a{color:var(--accent-ink)}
       });
     },{threshold:.5});
     secs.forEach(function(s){ if(s) so.observe(s); });
+  }
+  // theme toggle (initial theme already applied by the head script)
+  var btn = document.getElementById('themebtn');
+  function paint(){
+    var t = document.documentElement.getAttribute('data-theme') || 'dark';
+    if(btn){ btn.textContent = (t === 'dark') ? '☀' : '☾';
+      btn.setAttribute('aria-label', (t==='dark'?'Switch to light theme':'Switch to dark theme')); }
+  }
+  paint();
+  if(btn){
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      var next = (cur === 'dark') ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try{ localStorage.setItem('stvt-theme', next); }catch(e){}
+      paint();
+    });
   }
 })();
 </script>
